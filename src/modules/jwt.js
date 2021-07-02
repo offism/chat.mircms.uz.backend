@@ -1,12 +1,11 @@
 const {verify , sign} =require('jsonwebtoken')
 const {JWT_SECRET} = require('../../config.js')
 
-
-function generateToken(data){
+async function generateToken(data){
 	return await sign(data , JWT_SECRET)
 }
 
-function validateJWTToken(token){
+async function validateJWTToken(token){
 	try {
 	return await verify(token , JWT_SECRET)
 		
