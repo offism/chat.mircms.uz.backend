@@ -26,7 +26,18 @@ async function start(){
     app.use(express.json())
  
     const routesPath = path.join(__dirname , 'routes')
-    
+
+
+    const routesFiles = fs.readdir(routesPath , (err , files)=>{
+        if(err) throw Error(err)
+            files.forEach(file => { 
+             const routePath = path.join(__dirname , 'routes' , file)
+             const route = require(routePath)
+             if(route.router && route.path){
+                app.use(route.path , route.router)
+             }
+            })
+    })    
 }
 
 start()
